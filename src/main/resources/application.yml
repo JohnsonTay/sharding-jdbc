@@ -1,0 +1,62 @@
+
+server:
+  port: 8081
+
+spring:
+  jpa:
+    database: MYSQL
+    open_in_view: false
+    show_sql: true
+    hibernate:
+      ddl_auto: none
+    properties:
+      hibernate.format_sql: true
+  datasource:
+#    url: jdbc:mysql://${db.host}:${db.port}/${db.database}?characterEncoding=utf-8&amp;autoReconnect=true&amp;useUnicode=true&amp;zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+    url: jdbc:mysql://${db.host}:${db.port}/%s?characterEncoding=utf-8&autoReconnect=true&useUnicode=true&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true&useSSL=false&serverTimezone=UTC
+    username: ${db.username}
+    password: ${db.password}
+    driverClassName: com.mysql.jdbc.Driver
+    initialSize:  ${db.initialSize}
+    minIdle: ${db.minIdle}
+    maxActive:  ${db.maxActive}
+    maxWait: ${db.maxWait}
+    timeBetweenEvictionRunsMillis: ${db.timeBetweenEvictionRunsMillis}
+    minEvictableIdleTimeMillis: ${db.minEvictableIdleTimeMillis}
+    testWhileIdle: ${db.testWhileIdle}
+    testOnBorrow: ${db.testOnBorrow}
+    testOnReturn: ${db.testOnReturn}
+    validationQuery: ${db.validationQuery}
+    poolPreparedStatements: ${db.poolPreparedStatements}
+    maxOpenPreparedStatements: ${db.maxOpenPreparedStatements}
+    slowSql: ${db.slowSql}
+    filters: ${db.filters}
+  profiles: local,sdev,stest,online
+
+---
+spring:
+  profiles: local
+config:
+  file: classpath:config.properties
+
+---
+spring:
+  profiles: sdev
+config:
+  file: classpath:config.properties
+
+---
+spring:
+  profiles: stest
+config:
+  file: classpath:config.properties
+
+---
+spring:
+  profiles: online
+config:
+  file: classpath:config.properties
+
+
+
+
